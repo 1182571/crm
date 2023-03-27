@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/public.css" />
+    <link rel="stylesheet" href="css/修改学生.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/public.js"></script>
+  </head>
+
+  <body>
+    <div class="top">
+      <!--        顶部-->
+      <div class="logo">
+        <a href="#">
+          <img src="images/logo.png" alt="" />
+        </a>
+      </div>
+      <div class="menu">
+        <img src="icon/menu.svg" alt="" />
+      </div>
+      <div class="user">
+        <div class="avatar">
+          <div class="ico">
+            <img src="images/avatar.png" alt="" />
+          </div>
+          <span>姓名002</span>
+        </div>
+        <div class="notice">
+          <img src="images/notice.png" alt="" />
+          <span>通知公告</span>
+        </div>
+        <div class="quit">
+          <img src="images/quit.png" alt="" />
+          <span>注销退出</span>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="nav">
+        <!--        侧边导航栏-->
+        <div class="jxdgl">教学点管理</div>
+        <ul class="nav-list">
+          <li>
+            <a href="./班级管理.html">
+              <i class="ico"></i>
+              <span>班级管理</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="./学生管理.html">
+              <i class="ico"></i>
+              <span>学生管理</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+
+          <li>
+            <a href="./添加班级.html">
+              <i class="ico"></i>
+              <span>添加班级</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="./修改班级.html">
+              <i class="ico"></i>
+              <span>修改班级</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="./添加学生.html">
+              <i class="ico"></i>
+              <span>添加学生</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a class="this" href="./修改学生.html">
+              <i class="ico"></i>
+              <span>修改学生</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="ico"></i>
+              <span>成绩管理</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="ico"></i>
+              <span>修改成绩</span>
+              <i class="ico-yjt">
+                <img src="icon/yjt.png" alt="" />
+              </i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="contaner">
+        <!--        主要内容区域    -->
+        <div class="pd30">
+          <div class="title">
+            <div class="icon"></div>
+            <p>前端实训课程——修改学生&emsp;【码路教育】</p>
+          </div>
+          <div class="content">
+            <ul>
+              <li>学生姓名：<input id="nameInput" type="text" /></li>
+              <li>
+                学生性别：<select id="sex">
+                  <option value="请选择性别">请选择性别</option>
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                </select>
+              </li>
+              <li>学生年龄：<input id="age" type="number" /></li>
+              <li>
+                学生班级：<select id="classNumer" name="" id="">
+                  <option value="请选择性别">请选择性别</option>
+                  <option value="2207">2207</option>
+                  <option value="2208">2208</option>
+                  <option value="2209">2209</option>
+                  <option value="2210">2210</option>
+                </select>
+              </li>
+              <li>学生学号：<input id="number" type="text" name="" id="" /></li>
+            </ul>
+            <div>
+              <button id="editStu">修改</button>
+              <button style="margin-left: 30px" id="clear">重置</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    if (!sessionStorage.getItem('stu')) {
+      location.replace('./学生管理.html')
+    }
+    window.addEventListener('beforeunload', event => {
+      sessionStorage.removeItem('stu')
+    })
+    let stuClassArr = JSON.parse(localStorage.getItem('stuClassArr'))
+    let editStu = document.getElementById('editStu')
+    let Id = JSON.parse(localStorage.getItem('Id'))
+    let init = () => {
+      //回显
+      nameInput.value = stuClassArr[Id].name
+      age.value = stuClassArr[Id].age
+      number.value = stuClassArr[Id].id
+      classNumer.value = stuClassArr[Id].class
+      sex.value = stuClassArr[Id].sex
+    }
+    init()
+
+    editStu.onclick = () => {
+      let obj = {
+        name: nameInput.value,
+        sex: sex.value,
+        age: age.value,
+        id: number.value,
+        class: classNumer.value
+      }
+      stuClassArr[Id] = obj
+      if (
+        nameInput.value == '' ||
+        age.value == '' ||
+        number.value == '' ||
+        classNumer.value == '' ||
+        sex.value == ''
+      ) {
+        alert('不能为空')
+        return
+      }
+      localStorage.setItem('stuClassArr', JSON.stringify(stuClassArr))
+      location.href = './学生管理.html'
+    }
+
+    clear.onclick = () => {
+      nameInput.value = ''
+      age.value = ''
+      number.value = ''
+      classNumer.value = ''
+      sex.value = ''
+    }
+  </script>
+</html>
